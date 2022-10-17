@@ -21,7 +21,7 @@ import Graphics.Canvas (Context2D, CanvasElement, clearRect, getCanvasElementByI
 import Graphics.Drawing (render) as Drawing
 import Guitar.Audio (getMidiPitches, playChord)
 import Guitar.Graphics (canvasHeight, canvasWidth, displayChord, fingeredString, titleDepth)
-import Guitar.Validation (validateJson)
+import FrettedInstrument.Validation (validateJson)
 import Halogen as H
 import Halogen.Aff as HA
 import Halogen.FileInputComponent as FIC
@@ -391,7 +391,7 @@ component =
     Load (FIC.FileLoaded filespec) -> do
       state <- H.get
       let
-        validated = validateJson filespec.contents
+        validated = validateJson filespec.contents 6
         newState = validation
           (\errs -> state { errorText = foldl (<>) "" errs })
           (\chordShape -> state { chordShape = chordShape, errorText = "" })

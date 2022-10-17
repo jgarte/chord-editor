@@ -24,11 +24,11 @@ maxFrets :: Int
 maxFrets = 27
 
 -- | validate a prospective guitar chord JSON String
-validateJson :: String -> Validated ChordShape
-validateJson json =
+validateJson :: String -> Int -> Validated ChordShape
+validateJson json fcount =
   either
     (const $ invalid $ pure "Not a recognisable guitar chord format.")
-    validate
+    (validate fcount)
     (readGuitar json)
 
 -- | validate a prospective guitar chord
